@@ -1,0 +1,23 @@
+services:
+  jellyfin:
+    image: jellyfin/jellyfin
+    user: 789:3501
+    ports:
+      - 8096:8096
+    volumes:
+      - ./volumes/config:/config
+      - ./volumes/cache:/cache
+      #- type: bind
+      #  source: ./music
+      #  target: /music
+      #- type: bind
+      #  source: /path/to/media2
+      #  target: /media2
+      #  read_only: true
+    restart: 'unless-stopped'
+    # Optional - alternative address used for autodiscovery
+    #environment:
+    #  - JELLYFIN_PublishedServerUrl=http://example.com
+    # Optional - may be necessary for docker healthcheck to pass if running in host network mode
+    #extra_hosts:
+    #  - 'host.docker.internal:host-gateway'
