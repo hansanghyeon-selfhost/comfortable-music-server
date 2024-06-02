@@ -1,7 +1,7 @@
 ## TL;DR
 
 ```
-sh -c "$(gh api repos/hansanghyeon/comfortable-music/scripts/install.sh --jq '.content' | base64 --decode)"
+sh -c "$(gh api repos/hansanghyeon/comfortable-music/scripts/download.sh --jq '.content' | base64 --decode)"
 ```
 
 ## 쾌적한 음악 아카이브 서버 만들기
@@ -69,3 +69,14 @@ curl -X POST "$JELLYFIN_SERVER_DOMAIN/Library/Refresh" \
 ```
 
 간단한 API로 정말 빠르게 jellyfin 라이브러리를 스캔
+
+### 플레이리스트 다운로드 스크립트
+
+1. 유튜브 음악 저장
+2. 유튜브 썸네일 저장
+3. 썸네일 convert cover.jpg
+4. jellyfin 라이브러리 스캔
+
+매번 총 4단계를 모두 명령어를 통해서 하다보니 실수할때도있고 번거롭기도하다. 쉘스크립트를 이용해서 위 4개의 스크립트를 만든다.
+
+`./scripts/download.sh` 해당 파일 참고
