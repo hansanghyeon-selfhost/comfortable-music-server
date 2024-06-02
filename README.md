@@ -62,3 +62,10 @@ convert *.webp cover.jpg
 jellyfin은 영상파일 음악파일이 업로드되어도 자동적으로 스캔하지 않는다. jellyfin에서 `관리자 > 라이브러리 > 라이브러리 스캔` 이 단계를 거쳐야 저장된 음원이 라이브러리에 보이게된다.
 
 어지럽다 스크립트를 통해 jellyfin api를 이용해서 자동화하자
+
+```sh
+curl -X POST "$JELLYFIN_SERVER_DOMAIN/Library/Refresh" \
+    -H "X-Emby-Token: $JELLYFIN_SERVER_API_KEY"
+```
+
+간단한 API로 정말 빠르게 jellyfin 라이브러리를 스캔
