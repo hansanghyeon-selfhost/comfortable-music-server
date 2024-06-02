@@ -1,0 +1,18 @@
+networks:
+  media_net:
+    external: true
+  traefik_proxy:
+    external: true
+
+services:
+  jellyfin:
+    networks:
+      - media_net
+      - traefik_proxy
+      - default
+    labels:
+      - traefik.enable=true
+      ## HTTP Routers
+      - traefik.http.routers.${SERVICE}.entrypoints=http
+      - traefik.http.routers.${SERVICE}.rule=Host(`${DOMAIN}`)
+      - traefik.http.services.${SERVICE}.loadbalancer.server.port=8096
