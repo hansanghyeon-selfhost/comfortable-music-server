@@ -1,13 +1,19 @@
 #!/bin/sh
 
-# .env 파일에서 환경변수를 불러옵니다.
-set -a
-. ./.env
-set +a
+# .env 파일이 있으면 환경변수를 불러옵니다.
+if [ -f .env ]; then
+    set -a
+    . ./.env
+    set +a
+else
+    # .env 파일이 없으면 환경변수를 대화형으로 입력받습니다.
+    read -p "Jellyfin 서버 도메인을 입력해주세요 (예: http://localhost:8096): " JELLYFIN_SERVER_DOMAIN
+    read -p "Jellyfin API 키를 입력해주세요: " JELLYFIN_SERVER_API_KEY
+fi
 
 #################### 유튜브 음악 저장
 
-# 유튜브 아이디를 스크립트 실행시에 받아와야한다.
+# 유튜브 아이디를 스크립트 실행 시에 받아와야 합니다.
 read -p "저장하실 유튜브 아이디를 입력해주세요: " ytid
 
 # 유튜브 아이디를 입력하지 않거나 공백이면 스크립트를 종료합니다.
@@ -19,12 +25,12 @@ fi
 # 이후 처리할 코드 작성
 echo "입력한 유튜브 아이디는: $ytid 입니다."
 
-# 유니크폴더 만들기
+# 유니크 폴더 만들기
 folder=$(openssl rand -base64 18 | tr -dc 'a-zA-Z0-9' | cut -c 1-12)
 echo "플레이리스트를 저장할 폴더입니다: $folder"
 mkdir $folder
 
-# 유니크폴더 플레이리스트 저장
+# 유니크 폴더로 이동하여 플레이리스트 저장
 cd $folder
 echo "플레이리스트를 저장합니다 ...🏃‍♀️"
 yt-dlp -x --audio-format mp3 --split-chapters -o "chapter:%(section_number)02d-%(section_title).200s.%(ext)s" $ytid
@@ -41,9 +47,9 @@ curl -X POST "$JELLYFIN_SERVER_DOMAIN/Library/Refresh" \
 
 sleep 3
 
-#################### 앨범정보에서 타이틀 업데이트
+#################### 앨범 정보에서 타이틀 업데이트
 
-## album.nfo 파일이 있는지 확인하고 없으면 종료
+# album.nfo 파일이 있는지 확인하고 없으면 종료
 if [ ! -f album.nfo ]; then
     echo "album.nfo 파일을 찾을 수 없습니다. 스크립트를 종료합니다."
     exit 1
@@ -60,7 +66,7 @@ fi
 title=$(basename "$mp3_file" .mp3)
 title=$(echo "$title" | sed "s/ \[$ytid\]$//")
 
-# album.nfo 파일의 <title> 태그를 webm 파일 이름으로 변경
+# album.nfo 파일의 <title> 태그를 mp3 파일 이름으로 변경
 sed -i "s|<title>.*</title>|<title>$title</title>|" album.nfo
 
 # 변경 완료 메시지 출력
