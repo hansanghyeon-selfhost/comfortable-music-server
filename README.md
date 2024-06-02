@@ -1,3 +1,5 @@
+<img width="1012" alt="image" src="https://github.com/Hansanghyeon/comfortable-music/assets/42893446/13583931-5b39-4911-9444-740cb5263678">
+
 ## TL;DR
 
 > [!TIP]
