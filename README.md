@@ -1,7 +1,11 @@
 ## TL;DR
 
+> [!TIP]
+> `.env`파일은 명령어를 실행시킬 곳에 먼저 추가해주세요
+> jellyfin server 도메인, jellyfin api 입력하는 단계가 제거됩니다.
+
 ```
-sh -c "$(gh api repos/hansanghyeon/comfortable-music/scripts/download.sh --jq '.content' | base64 --decode)"
+sh -c "$(curl -sL https://api.github.com/repos/hansanghyeon/comfortable-music/contents/scripts/download.sh | jq -r '.content' | base64 --decode)"
 ```
 
 ## 쾌적한 음악 아카이브 서버 만들기
