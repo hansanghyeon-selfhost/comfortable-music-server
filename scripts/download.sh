@@ -22,10 +22,10 @@ echo "입력한 유튜브 아이디는: $ytid 입니다."
 # 유니크폴더 만들기
 folder=$(openssl rand -base64 18 | tr -dc 'a-zA-Z0-9' | cut -c 1-12)
 echo "플레이리스트를 저장할 폴더입니다: $folder"
-mkdir ../$folder
+mkdir $folder
 
 # 유니크폴더 플레이리스트 저장
-cd ../$folder
+cd $folder
 echo "플레이리스트를 저장합니다 ...🏃‍♀️"
 yt-dlp -x --audio-format mp3 --split-chapters -o "chapter:%(section_number)02d-%(section_title).200s.%(ext)s" $ytid
 
