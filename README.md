@@ -10,6 +10,12 @@
 sh -c "$(curl -sL https://api.github.com/repos/hansanghyeon-selfhost/comfortable-music-server/contents/scripts/download.sh | jq -r '.content' | base64 --decode)"
 ```
 
+## Feature
+
+- [x] 뮤직서버 (self-host)
+- [x] 유튜브 음악 손쉽게 다운로드 받기 스크립트
+- [ ] apt, brew 패키지로 만들기
+
 ## 쾌적한 음악 아카이브 서버 만들기
 
 항상 사용하는 서비스가 아닌 아카이브 용도로 사용할 미디어플레이서 서버이다.
